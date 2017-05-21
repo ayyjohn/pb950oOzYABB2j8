@@ -21,3 +21,8 @@ def right_propagate(x):
 
 print(right_propagate(0b01010000))
 print(right_propagate(0b0001000))
+
+# simplest answer
+
+def right_propagate(x):
+    x | (x - 1)
