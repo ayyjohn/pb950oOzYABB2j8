@@ -47,3 +47,6 @@ def parity(x):
     for i in nums:
         x ^= x >> i
     return x & 0x1
+
+# note that this can be combined with the 16 bit caching.
+# this time complexity is O(log(n))
