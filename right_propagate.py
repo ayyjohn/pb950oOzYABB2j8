@@ -12,3 +12,12 @@ def right_propagate(x):
 
 print(right_propagate(0b01010000))
 print(right_propagate(0b0001000))
+
+# this can be slightly improved, not in time, just in complexity.
+# we can get the last isolated bit by doing x & ~(x - 1) and then
+# subtracting 1 from that. 
+def right_propagate(x):
+    return format(x + (x & ~(x - 1)) - 1, f"0{ math.floor(math.log(x, 2) + 1) }b")
+
+print(right_propagate(0b01010000))
+print(right_propagate(0b0001000))
