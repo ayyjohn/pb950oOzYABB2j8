@@ -28,3 +28,22 @@ def parity(x):
 
 # note another neat trick is that x & ~(x - 1) isolates the lowest bit that is
 # one in x. (~ is the bitwise complement operator)
+
+# further improvements can be made by caching, based on the fact that
+# decomposing a 64 bit number into 4 16 bit numbers, and caching all 2^16
+# 16 bit parities is not that hard at all; and then the parity of
+# the entire number is the parity of the 4 16 bit numbers
+
+# in addition, xor provides another amazing improvement. By splitting
+# a 64 bit binary number in half, and xor-ing the two halves together,
+# the parity can be produced. This can then be repeated down to 0 bits
+# and a result can be extracted. To exemplify:
+# the parity of 11010111 is the same as the parity of 1101 xor 0111
+# which is 1010. the parity of 1010 is the same as the parity of 10 xor 10
+# which is 00. the final result is 0 xor 0 which is 0.
+
+def parity(x):
+    nums = [32, 16, 8, 4, 3, 1]
+    for i in nums:
+        x ^= x >> i
+    return x & 0x1
