@@ -14,3 +14,8 @@ def set_nth_bit(x, n):
 def unset_nth_bit(x, n):
     return x & ~(1 << n)
 
+def toggle_nth_bit(x, n):
+    return x ^ (1 << n)
+
+def turn_off_rightmost_one_bit(x):
+    return x & (x - 1)
