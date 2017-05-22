@@ -25,7 +25,7 @@ def closet_same_bit_weight(x):
     for i in range(NUM_UNSIGNED_BITS - 1):
         # if the bits at the indices are different,
         # swap them.
-        if (x >> i) & 1 != (x >> (i - 1) && 1):
+        if (x >> i) & 1 != (x >> (i - 1) & 1):
             x ^= (1 << i) | (1 << (i + 1))
             return x
     raise ValueError('All bits are 0 or 1') #can't find an answer
@@ -35,4 +35,7 @@ def closet_same_bit_weight(x):
 
 def closet_same_bit_weight(x):
     rightmost_set = x & ~(x - 1)
+    second_lowest_not_set = ~x & (x + 1)
+    return x ^ rightmost_set | second_lowest_not_set
 
+print(closet_same_bit_weight(6))
