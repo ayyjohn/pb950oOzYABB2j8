@@ -27,3 +27,21 @@ def isolate_rightmost_one_bit(x):
 def right_propagate_rightmost_set_bit(x):
     # doesn't work on 0
     return x | (x - 1)
+
+def isolate_rightmost_zero_bit(x):
+    return ~x & (x + 1)
+
+def turn_on_rightmost_zero_bit(x):
+    return x | (x + 1)
+
+def int_to_bin(x, bits=8):
+    result = ''
+    while bits:
+        result = ('1' if x & 1 else '0') + result
+        bits -=1
+        x >>= 1
+    return result
+
+print(int_to_bin(8))
+print(int_to_bin(15))
+print(int_to_bin(9))
