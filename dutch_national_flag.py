@@ -3,26 +3,6 @@
 # come first, then elements equal to the pivot, then
 # elements greater than the pivot.
 
-# step 1 is to swap the first element with the pivot
-# then, iterate over the array. if we hit an element
-# greater than the pivot, just increment a counter
-# which will tell us what part of the array
-def partition(array, i):
-    array[0], array[i] = array[i], array[0]
-    less = 0
-    for j in range(len(array)):
-        if array[j] < array[less]:
-            array[j], array[less] = array[less], array[j]
-            less += 1
-            array[less], array[j] = array[j], array[less]
-    return array
-
-print(partition([1, 5, 8, 3, 9, 0, 4], 3))
-
-# this approach works but does not partition the 3s together
-# to solve this trivially create 3 arrays, those equal, those
-# greater, and those less than the value, the concat them.
-
 def partition(array, i):
     less = []
     equal = []
@@ -43,17 +23,19 @@ print(partition([1, 5, 8, 3, 9, 0, 4, 3], 3))
 # grouping all elements less than the pivot to the left
 # of the pivot, and then on the second pass grouping all
 # elements greater than the pivot to the right
+def swap(array, i, j):
+    array[i], array[j] = array[j], array[i]
 
 def partition(array, i):
     less = 0
     for j in range(len(array)):
         if array[j] < array[i]:
-            array[less], array[j] = array[j], array[less]
+            swap(array, less, j)
             less += 1
     more = len(array) - 1
     for j in reversed(range(len(array))):
         if array[j] > array[i]:
-            array[more], array[j] = array[j], array[more]
+            swap(array, more, j)
             more -= 1
 
     return array
@@ -61,17 +43,31 @@ def partition(array, i):
 
 print(partition([1, 5, 8, 3, 9, 0, 4, 3], 3))
 
+# iterate through the array, the iterator is named equal.
+# if we encounter a smaller element than the pivot, we
+# swap that element with the rightmost element that is smaller
+# than the pivot. if we encounter an element equal to the pivot
+# we continue. if we encounter an element greater than the pivot we
+# swap it with the smallest unclassified element, because we still
+# need to operate on the unclassified element, but now we know
+# that that element should go to the right side of the list.
+# note that in this case we do NOT increment the equal value
+# because otherwise we'd skip the value that got swapped.
+
 def partition(array, i):
     pivot = array[i]
     smaller, equal, larger = 0, 0, len(array)
 
     while equal < larger:
         if array[equal] < pivot:
-            array[smaller], array[equal] = array[equal], array[smaller]
-            smaller, equal = smaller + 1, equal + 1
+            swap(array, smaller, equal)
+            smaller += 1
+            equal += 1
         elif array[equal] == pivot:
             equal += 1
         else:
             larger -= 1
-            array[equal], array[larger] = array[larger], array[equal]
+            swap(array, equal, larger)
     return array
+
+print(partition([1, 5, 8, 3, 9, 0, 4, 3], 3))
