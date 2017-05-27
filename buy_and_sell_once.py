@@ -55,3 +55,27 @@ def buy_and_sell_once(array):
 
 print(buy_and_sell_once([310, 315, 275, 295, 260, 270, 290, 230, 255, 250]))
 
+# variant: write a function that takes an array as input and returns the length
+# of the longest sequence inside the array for which elements are the same
+# eg for [1, 3, 3, 5, 8, 5, 5] it should return 2
+
+def longest_same_subarray(array):
+    longest_sequence, current, current_sequence = 1, None, 0
+    if not array:
+        return 0
+    for i in array:
+        if i == current:
+            current_sequence += 1
+            longest_sequence = max(current_sequence, longest_sequence)
+        else:
+            current = i
+            current_sequence = 1
+    return longest_sequence
+
+print(longest_same_subarray([1, 3, 3, 5, 7, 5, 5, 5]))
+print(longest_same_subarray([1, 3, 3, 5, 7, 5, 5]))
+print(longest_same_subarray([1, 3, 3, 3, 5, 3, 3, 5, 5]))
+print(longest_same_subarray([1]))
+print(longest_same_subarray([1, 1]))
+print(longest_same_subarray([1, 2, 3, 4, 5]))
+print(longest_same_subarray([]))
