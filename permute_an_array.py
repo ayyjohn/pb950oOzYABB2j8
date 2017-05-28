@@ -36,3 +36,19 @@ print(permute(['a', 'b', 'c', 'd'], [2, 0, 1, 3]))
 # we will be at the beginning again. we can thus track whether we're inside
 # a cycle using the permutation array and compute the permutation in place
 # only proceeding to the next cycle once the current one is complete
+
+def permute(array, permutation):
+    for i in range(len(array)):
+        # check if the element at index i has not been moved
+        # by checking if permutation[i] is nonnegative
+    next = i
+    while permutation[next]:
+        array[i], array[permutation[next]] = array[permutation[next], array[i]]
+        temp = permutation[next]
+        # subtract length of the permutations array from an entry in the array
+        # to make it negative which indicates that the move has been performed
+        # but retains the value in metadata
+        permutation[next] -= len(permutation)
+        next = temp
+    # restore the permutation array
+    permutation[:] = [a + len(perm) for a in perm]
