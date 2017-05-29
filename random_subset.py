@@ -2,7 +2,6 @@
 # integer k <= n and outputs a k sized subset as an array. all subsets
 # should be equally likely, and all permutations of the subset
 # should be equally likely.
-import random
 
 # to do this we create a pseudo array of length n, for which
 # array[i] = i at the beginning. this is distinct from a random
@@ -11,6 +10,8 @@ import random
 # we then apply the same algorithm, but only track the swaps, and implicitly
 # if it hasn't been swapped then array[i] is still i. we do this k times
 # and then return the values.
+import random
+
 def subset(n, k):
     changed_elements = {}
     for i in range(k):
