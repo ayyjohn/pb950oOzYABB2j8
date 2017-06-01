@@ -41,9 +41,9 @@ import string
 
 def string_to_num(s):
     return functools.reduce(lambda running_sum,
-                  c: running_sum * 10 + string.digits.index(c),
-                  s[s[0] == '-':],
-                  0) * (-1 if s[0] == '-' else 1)
+                            c: running_sum * 10 + string.digits.index(c),
+                            s[s[0] == '-':],
+                            0) * (-1 if s[0] == '-' else 1)
 
 
 print(string_to_num('-1000'))
