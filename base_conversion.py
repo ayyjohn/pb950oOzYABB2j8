@@ -37,3 +37,10 @@ def convert_base(num_as_string, b1, b2):
         num_as_string[is_negative:], 0)
     return ('-' if is_negative else '') + ('0' if num_as_int == 0 else
                                            construct_from_base(num_as_int, b2))
+
+# first, we find whether or not the number is negative
+# then we use the previous algorithm of adding and multiplying
+# leftwards down a string to convert a string of any base
+# to an int in base 10. then we use construct from base
+# to do the canonical divmod to get the value in another base
+# from the original int.
