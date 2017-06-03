@@ -2,7 +2,7 @@
 # an integer b2. the string is in base b1 and the output should be
 # that number in base b2 as a string
 
-def base_convert(s, b1, b2):
+def to_binary(s):
     if s == "0":
         return 0
     x = -1
@@ -17,6 +17,23 @@ def base_convert(s, b1, b2):
         else:
             output += '0'
     return output
-print(base_convert("15", 0, 0))
-print(base_convert("8", 0, 0))
-print(base_convert("0", 0, 0))
+print(to_binary("15"))
+print(to_binary("8"))
+print(to_binary("9"))
+print(to_binary("0"))
+
+import string
+import functools
+
+def convert_base(num_as_string, b1, b2):
+    def construct_from_base(num_as_int, base):
+        return ('' if num_as_int == 0 else
+                construct_from_base(num_as_int // base, base) +
+                string.hexdigits[num_as_int % base].upper())
+
+    is_negative = num_as_string[0] == '-'
+    num_as_int = functools.reduce(
+        lambda x, c: x * b1 + string.hexdigits.index(c.lower()),
+        num_as_string[is_negative:], 0)
+    return ('-' if is_negative else '') + ('0' if num_as_int == 0 else
+                                           construct_from_base(num_as_int, b2))
